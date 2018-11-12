@@ -9,7 +9,15 @@ class Config {
   final Map<String, String> parameters;
   final Map<String, String> headers;
 
-  Config(this.authorizationUrl, this.tokenUrl, this.clientId,
-      this.clientSecret, this.redirectUri, this.responseType,
-      {this.contentType = "application/json", this.parameters, this.headers});
+  Config(
+    this.authorizationUrl,
+    this.tokenUrl,
+    this.clientId,
+    this.clientSecret,
+    this.redirectUri,
+    this.responseType, {
+    this.contentType = "application/json",
+    this.parameters,
+    this.headers,
+  });
 }
