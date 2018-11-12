@@ -18,8 +18,8 @@ class FlutterOAuth extends OAuth {
   Stream<String> get onCode =>
       onCodeStream ??= onCodeListener.stream.asBroadcastStream();
 
-  FlutterOAuth(Config configuration) :
-        super(configuration, new AuthorizationRequest(configuration));
+  FlutterOAuth(Config configuration)
+      : super(configuration, new AuthorizationRequest(configuration));
 
   Future<String> requestCode() async {
     if (shouldRequestCode() && !isBrowserOpen) {
@@ -34,9 +34,11 @@ class FlutterOAuth extends OAuth {
         close();
       });
 
-      webView.launch("${requestDetails.url}?$urlParams",
-          clearCookies: requestDetails.clearCookies,
-          fullScreen: requestDetails.fullScreen);
+      webView.launch(
+        "${requestDetails.url}?$urlParams",
+        clearCookies: requestDetails.clearCookies,
+        //  fullScreen: requestDetails.fullScreen,
+      );
 
       code = await onCode.first;
       close();
@@ -76,5 +78,4 @@ class FlutterOAuth extends OAuth {
       }
     });
   }
-
 }

@@ -1,6 +1,6 @@
 
-name: flutter_webview_plugin_example
-description: Demonstrates how to use the flutter_webview_plugin plugin.
+name: flutter_oauth_example
+description: Demonstrates how to use the flutter_oauth plugin.
 
 dependencies:
   flutter:
