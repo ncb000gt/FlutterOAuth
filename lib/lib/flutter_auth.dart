@@ -8,9 +8,9 @@ import 'package:flutter_oauth/lib/oauth.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class FlutterOAuth extends OAuth {
-  final StreamController<String> onCodeListener = new StreamController();
+  final StreamController<String> onCodeListener = StreamController();
 
-  final FlutterWebviewPlugin webView = new FlutterWebviewPlugin();
+  final FlutterWebviewPlugin webView = FlutterWebviewPlugin();
 
   var isBrowserOpen = false;
   var server;
@@ -20,7 +20,7 @@ class FlutterOAuth extends OAuth {
       onCodeStream ??= onCodeListener.stream.asBroadcastStream();
 
   FlutterOAuth(Config configuration)
-      : super(configuration, new AuthorizationRequest(configuration));
+      : super(configuration, AuthorizationRequest(configuration));
 
   Future<String> requestCode() async {
     if (shouldRequestCode() && !isBrowserOpen) {
@@ -31,9 +31,7 @@ class FlutterOAuth extends OAuth {
       listenForServerResponse(server);
 
       final String urlParams = constructUrlParams();
-      webView.onDestroy.first.then((_) {
-        close();
-      });
+      webView.onDestroy.first.then((_) => close());
 
       webView.launch(
         "${requestDetails.url}?$urlParams",
@@ -55,8 +53,11 @@ class FlutterOAuth extends OAuth {
   }
 
   Future<HttpServer> createServer() async {
-    final server = await HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 8080,
-        shared: true);
+    final server = await HttpServer.bind(
+      InternetAddress.loopbackIPv4,
+      8080,
+      shared: true,
+    );
     return server;
   }
 
@@ -65,7 +66,7 @@ class FlutterOAuth extends OAuth {
       final uri = request.uri;
       request.response
         ..statusCode = 200
-        ..headers.set("Content-Type", ContentType.HTML.mimeType);
+        ..headers.set("Content-Type", ContentType.html.mimeType);
 
       final code = uri.queryParameters["code"];
       final error = uri.queryParameters["error"];

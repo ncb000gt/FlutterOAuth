@@ -7,8 +7,11 @@ class AuthorizationRequest {
   bool fullScreen;
   bool clearCookies;
 
-  AuthorizationRequest(Config config,
-      {bool fullScreen: true, bool clearCookies: true}) {
+  AuthorizationRequest(
+    Config config, {
+    bool fullScreen: true,
+    bool clearCookies: true,
+  }) {
     this.url = config.authorizationUrl;
     this.parameters = {
       "client_id": config.clientId,
