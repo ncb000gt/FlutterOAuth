@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_oauth/lib/auth_code_information.dart';
 import 'package:flutter_oauth/lib/model/config.dart';
 import 'package:flutter_oauth/lib/oauth.dart';

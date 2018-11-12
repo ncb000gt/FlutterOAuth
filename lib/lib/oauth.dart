@@ -10,7 +10,6 @@ import 'package:flutter_oauth/lib/token.dart';
 import 'package:http/http.dart';
 
 abstract class OAuth {
-
   final Config configuration;
   final AuthorizationRequest requestDetails;
   String code;
@@ -36,8 +35,9 @@ abstract class OAuth {
 
   String mapToQueryParams(Map<String, String> params) {
     final queryParams = <String>[];
-    params
-        .forEach((String key, String value) => queryParams.add("$key=$value"));
+    params.forEach(
+      (String key, String value) => queryParams.add("$key=$value"),
+    );
     return queryParams.join("&");
   }
 
@@ -55,5 +55,4 @@ abstract class OAuth {
   }
 
   Future<String> requestCode();
-
 }

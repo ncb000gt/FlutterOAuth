@@ -1,8 +1,8 @@
 name: flutter_oauth
 description: A flutter oauth package for performing oauth operations
 version: 0.0.2
-author:
-homepage:
+author: Joe Birch <hitherejoebirch@googlemail.com>
+homepage: https://github.com/hitherejoe/FlutterOAuth
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
