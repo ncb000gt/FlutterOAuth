@@ -1,6 +1,6 @@
 name: flutter_oauth
 description: A flutter oauth package for performing oauth operations
-version: 0.0.2
+version: 0.0.3
 author: Joe Birch <hitherejoebirch@googlemail.com>
 homepage: https://github.com/hitherejoe/FlutterOAuth
 
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.0
-  flutter_webview_plugin: ^0.2.1+2
+  flutter_webview_plugin: ^0.3.0+2
 
 dev_dependencies:
   test: ^1.5.1

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_oauth/lib/auth_code_information.dart';
 import 'package:flutter_oauth/lib/model/config.dart';
 import 'package:flutter_oauth/lib/oauth.dart';
@@ -14,16 +16,19 @@ class FlutterOAuth extends OAuth {
   var isBrowserOpen = false;
   var server;
   var onCodeStream;
+  var configuration;
 
   Stream<String> get onCode =>
       onCodeStream ??= onCodeListener.stream.asBroadcastStream();
 
   FlutterOAuth(Config configuration)
-      : super(configuration, AuthorizationRequest(configuration));
+    : super(configuration, AuthorizationRequest(configuration)) {
+    this.configuration = configuration;
+  }
 
   Future<String> requestCode() async {
     if (shouldRequestCode() && !isBrowserOpen) {
-      await webView.close();
+      webView.close();
       isBrowserOpen = true;
 
       server = await createServer();
@@ -40,6 +45,7 @@ class FlutterOAuth extends OAuth {
       code = await onCode.first;
       close();
     }
+
     return code;
   }
 
@@ -52,12 +58,32 @@ class FlutterOAuth extends OAuth {
   }
 
   Future<HttpServer> createServer() async {
-    final server = await HttpServer.bind(
-      InternetAddress.loopbackIPv4,
-      8080,
-      shared: true,
-    );
-    return server;
+
+    if (configuration.certPath != null && configuration.keyPath != null) {
+      SecurityContext context = new SecurityContext();
+      var certString = await rootBundle.loadString(configuration.certPath);
+      var keyString = await rootBundle.loadString(configuration.keyPath);
+      context.useCertificateChainBytes(
+        utf8.encode(certString)
+      );
+      context.usePrivateKeyBytes(
+        utf8.encode(keyString),
+        password: configuration.keyPW != null ? configuration.keyPW : ''
+      );
+
+      return await HttpServer.bindSecure(
+        InternetAddress.loopbackIPv4,
+        8080,
+        context,
+        shared: true,
+      );
+    } else {
+      return await HttpServer.bind(
+        InternetAddress.loopbackIPv4,
+        8080,
+        shared: true,
+      );
+    }
   }
 
   listenForServerResponse(HttpServer server) {

@@ -8,6 +8,9 @@ class Config {
   final String contentType;
   final Map<String, String> parameters;
   final Map<String, String> headers;
+  final String certFile;
+  final String keyFile;
+  final String keyPassword;
 
   Config(
     this.authorizationUrl,
@@ -19,5 +22,12 @@ class Config {
     this.contentType = "application/json",
     this.parameters,
     this.headers,
+    this.certFile,
+    this.keyFile,
+    this.keyPassword,
   });
+
+  String get certPath => certFile;
+  String get keyPath => keyFile;
+  String get keyPW => keyPassword;
 }
