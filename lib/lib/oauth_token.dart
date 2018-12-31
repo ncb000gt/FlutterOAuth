@@ -9,7 +9,6 @@ class TokenRequestDetails {
     this.url = configuration.tokenUrl;
     this.params = {
       "client_id": configuration.clientId,
-      "client_secret": configuration.clientSecret,
       "code": code,
       "redirect_uri": configuration.redirectUri,
       "grant_type": "authorization_code",
@@ -18,8 +17,10 @@ class TokenRequestDetails {
       "Accept": "application/json",
       "Content-Type": configuration.contentType,
     };
+		print('config headers: ${configuration.headers}');
     if (configuration.headers != null) {
-      this.headers.addAll(headers);
+			print('ADD HEADERS: $headers');
+      this.headers.addAll(configuration.headers);
     }
   }
 }

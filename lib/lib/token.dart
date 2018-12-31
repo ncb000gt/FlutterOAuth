@@ -2,6 +2,8 @@ class Token {
 
   String accessToken;
   String tokenType;
+  String refreshToken;
+  String scope;
 
   Token();
 
@@ -19,8 +21,17 @@ class Token {
       if (model.accessToken != null) {
         ret["access_token"] = model.accessToken;
       }
+
       if (model.tokenType != null) {
         ret["token_type"] = model.tokenType;
+      }
+
+      if (model.refreshToken != null) {
+        ret["refresh_token"] = model.refreshToken;
+      }
+
+      if (model.scope != null) {
+        ret["scope"] = model.scope;
       }
     }
     return ret;
@@ -31,6 +42,8 @@ class Token {
     Token model = Token();
     model.accessToken = map["access_token"];
     model.tokenType = map["token_type"];
+    model.refreshToken = map["refresh_token"];
+    model.scope = map["scope"];
     return model;
   }
 

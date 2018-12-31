@@ -27,15 +27,15 @@ in other optional parameters for:
 - __contentType__ - This allows you to change the content type for the request. For example, for Spotify
 API authorization you need to use "application/x-www-form-urlencoded"
 
-- __redirectedHtml__ - This allows you to set a message to display in the browser after finishing the auth process, if the browser isn't closed (webview should close, but Chrome not)
-
-- __forceWebview, forceSafariVC, enableJavascript__ - These allow you to specify the type of browser.
-
 ```dart
 final OAuth flutterOAuth = new FlutterOAuth(new Config(
     ...,
     contentType: "application/x-www-form-urlencoded"));
 ```
+
+- __redirectedHtml__ - This allows you to set a message to display in the browser after finishing the auth process, if the browser isn't closed (webview should close, but Chrome not)
+
+- __forceWebview, forceSafariVC, enableJavascript__ - These allow you to specify the type of browser.
 
 - __parameters__ - Add your own parameters that this library may not support out-of-the-box. For example,
 with the GitHub API you can send a state string and scopes to gain authorization for
