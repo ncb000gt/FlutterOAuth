@@ -2,6 +2,7 @@ library flutter_oauth;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_oauth/lib/auth_code_information.dart';
 import 'package:flutter_oauth/lib/model/config.dart';
@@ -20,9 +21,12 @@ abstract class OAuth {
   OAuth(this.configuration, this.requestDetails);
 
   Future<Map<String, dynamic>> getToken() async {
+		print('TOKEN REQ HEADERS: ${tokenRequest.headers}');
     if (token == null) {
+			var encodedParams = mapToQueryParams(tokenRequest.params);
+			print('TOKEN PARAMS: ${encodedParams}');
       Response response = await post("${tokenRequest.url}",
-          body: json.encode(tokenRequest.params),
+          body: encodedParams,
           headers: tokenRequest.headers);
       token = json.decode(response.body);
     }
@@ -36,7 +40,10 @@ abstract class OAuth {
   String mapToQueryParams(Map<String, String> params) {
     final queryParams = <String>[];
     params.forEach(
-      (String key, String value) => queryParams.add("$key=$value"),
+      (String key, String value) {
+				print('\t\tKEY: $key, VALUE: $value');
+				queryParams.add("$key=${Uri.encodeComponent(value)}");
+			}
     );
     return queryParams.join("&");
   }
@@ -48,7 +55,10 @@ abstract class OAuth {
   Future<Token> performAuthorization() async {
     String resultCode = await requestCode();
     if (resultCode != null) {
+			print('CODE: $resultCode');
       generateTokenRequest();
+
+			print('TOKEN: ${await getToken()}');
       return Token.fromJson(await getToken());
     }
     return null;

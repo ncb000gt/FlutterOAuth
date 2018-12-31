@@ -6,6 +6,10 @@ class Config {
   final String redirectUri;
   final String responseType;
   final String contentType;
+  final String redirectedHtml;
+  final bool forceWebView;
+  final bool forceSafariVC;
+  final bool enableJavaScript;
   final Map<String, String> parameters;
   final Map<String, String> headers;
   final String certFile;
@@ -18,16 +22,18 @@ class Config {
     this.clientId,
     this.clientSecret,
     this.redirectUri,
-    this.responseType, {
-    this.contentType = "application/json",
-    this.parameters,
-    this.headers,
-    this.certFile,
-    this.keyFile,
-    this.keyPassword,
-  });
-
-  String get certPath => certFile;
-  String get keyPath => keyFile;
-  String get keyPW => keyPassword;
+    this.responseType,
+		{
+			this.contentType = 'application/json',
+			this.parameters,
+			this.headers,
+			this.certFile,
+			this.keyFile,
+			this.keyPassword,
+			this.redirectedHtml,
+			this.forceWebView,
+			this.forceSafariVC,
+			this.enableJavaScript,
+		}
+	);
 }

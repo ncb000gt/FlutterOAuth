@@ -5,7 +5,7 @@ class Token {
 
   Token();
 
-  factory Token.fromJson(Map<String, String> json) =>
+  factory Token.fromJson(Map<String, dynamic> json) =>
       Token.fromMap(json);
 
   Map toMap() => Token.toJsonMap(this);
@@ -26,7 +26,7 @@ class Token {
     return ret;
   }
 
-  static Token fromMap(Map map) {
+  static Token fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     Token model = Token();
     model.accessToken = map["access_token"];

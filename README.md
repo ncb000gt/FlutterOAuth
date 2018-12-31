@@ -21,11 +21,15 @@ final OAuth flutterOAuth = new FlutterOAuth(new Config(
 ```
 
 This allows you to pass in an Authorization URL, Token request URL, Client ID, Client Secret,
-Redirect URL and the response type. This should satisfy most requests, but if not then you can pass
+Redirect URL, response type, server html. This should satisfy most requests, but if not then you can pass
 in other optional parameters for:
 
 - __contentType__ - This allows you to change the content type for the request. For example, for Spotify
 API authorization you need to use "application/x-www-form-urlencoded"
+
+- __redirectedHtml__ - This allows you to set a message to display in the browser after finishing the auth process, if the browser isn't closed (webview should close, but Chrome not)
+
+- __forceWebview, forceSafariVC, enableJavascript__ - These allow you to specify the type of browser.
 
 ```dart
 final OAuth flutterOAuth = new FlutterOAuth(new Config(

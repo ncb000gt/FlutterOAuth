@@ -6,12 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_oauth/lib/auth_code_information.dart';
 import 'package:flutter_oauth/lib/model/config.dart';
 import 'package:flutter_oauth/lib/oauth.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FlutterOAuth extends OAuth {
   final StreamController<String> onCodeListener = StreamController();
-
-  final FlutterWebviewPlugin webView = FlutterWebviewPlugin();
 
   var isBrowserOpen = false;
   var server;
@@ -28,19 +26,17 @@ class FlutterOAuth extends OAuth {
 
   Future<String> requestCode() async {
     if (shouldRequestCode() && !isBrowserOpen) {
-      webView.close();
-      isBrowserOpen = true;
+      closeWebView();
 
+      isBrowserOpen = true;
       server = await createServer();
       listenForServerResponse(server);
 
       final String urlParams = constructUrlParams();
-      webView.onDestroy.first.then((_) => close());
 
-      webView.launch(
-        "${requestDetails.url}?$urlParams",
-        clearCookies: requestDetails.clearCookies,
-      );
+      closeWebView();
+      launch("${requestDetails.url}?$urlParams",
+          forceWebView: configuration.forceWebView, forceSafariVC: configuration.forceSafariVC, enableJavaScript: configuration.enableJavaScript);
 
       code = await onCode.first;
       close();
@@ -52,23 +48,23 @@ class FlutterOAuth extends OAuth {
   void close() {
     if (isBrowserOpen) {
       server.close(force: true);
-      webView.close();
+      closeWebView();
     }
     isBrowserOpen = false;
   }
 
   Future<HttpServer> createServer() async {
 
-    if (configuration.certPath != null && configuration.keyPath != null) {
+    if (configuration.certFile != null && configuration.keyFile != null) {
       SecurityContext context = new SecurityContext();
-      var certString = await rootBundle.loadString(configuration.certPath);
-      var keyString = await rootBundle.loadString(configuration.keyPath);
+      var certString = await rootBundle.loadString(configuration.certFile);
+      var keyString = await rootBundle.loadString(configuration.keyFile);
       context.useCertificateChainBytes(
         utf8.encode(certString)
       );
       context.usePrivateKeyBytes(
         utf8.encode(keyString),
-        password: configuration.keyPW != null ? configuration.keyPW : ''
+        password: configuration.keyPassword != null ? configuration.keyPassword : ''
       );
 
       return await HttpServer.bindSecure(
@@ -95,7 +91,13 @@ class FlutterOAuth extends OAuth {
 
       final code = uri.queryParameters["code"];
       final error = uri.queryParameters["error"];
+
+      if( (configuration.redirectedHtml != null) && (configuration.forceWebView != true) ) {
+        request.response.write(configuration.redirectedHtml);
+      }
+
       await request.response.close();
+
       if (code != null && error == null) {
         onCodeListener.add(code);
       } else if (error != null) {
