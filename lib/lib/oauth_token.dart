@@ -17,9 +17,7 @@ class TokenRequestDetails {
       "Accept": "application/json",
       "Content-Type": configuration.contentType,
     };
-		print('config headers: ${configuration.headers}');
     if (configuration.headers != null) {
-			print('ADD HEADERS: $headers');
       this.headers.addAll(configuration.headers);
     }
   }
