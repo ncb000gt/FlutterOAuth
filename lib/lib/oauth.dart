@@ -21,10 +21,8 @@ abstract class OAuth {
   OAuth(this.configuration, this.requestDetails);
 
   Future<Map<String, dynamic>> getToken() async {
-		print('TOKEN REQ HEADERS: ${tokenRequest.headers}');
     if (token == null) {
-			var encodedParams = mapToQueryParams(tokenRequest.params);
-			print('TOKEN PARAMS: ${encodedParams}');
+      var encodedParams = mapToQueryParams(tokenRequest.params);
       Response response = await post("${tokenRequest.url}",
           body: encodedParams,
           headers: tokenRequest.headers);
@@ -41,9 +39,8 @@ abstract class OAuth {
     final queryParams = <String>[];
     params.forEach(
       (String key, String value) {
-				print('\t\tKEY: $key, VALUE: $value');
-				queryParams.add("$key=${Uri.encodeComponent(value)}");
-			}
+        queryParams.add("$key=${Uri.encodeComponent(value)}");
+      }
     );
     return queryParams.join("&");
   }
@@ -55,10 +52,8 @@ abstract class OAuth {
   Future<Token> performAuthorization() async {
     String resultCode = await requestCode();
     if (resultCode != null) {
-			print('CODE: $resultCode');
       generateTokenRequest();
 
-			print('TOKEN: ${await getToken()}');
       return Token.fromJson(await getToken());
     }
     return null;

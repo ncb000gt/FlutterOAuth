@@ -23,17 +23,17 @@ class Config {
     this.clientSecret,
     this.redirectUri,
     this.responseType,
-		{
-			this.contentType = 'application/json',
-			this.parameters,
-			this.headers,
-			this.certFile,
-			this.keyFile,
-			this.keyPassword,
-			this.redirectedHtml,
-			this.forceWebView,
-			this.forceSafariVC,
-			this.enableJavaScript,
-		}
-	);
+    {
+      this.contentType = 'application/json',
+      this.parameters,
+      this.headers,
+      this.certFile,
+      this.keyFile,
+      this.keyPassword,
+      this.redirectedHtml,
+      this.forceWebView,
+      this.forceSafariVC,
+      this.enableJavaScript,
+    }
+  );
 }
