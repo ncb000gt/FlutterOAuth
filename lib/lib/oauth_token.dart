@@ -9,6 +9,7 @@ class TokenRequestDetails {
     this.url = configuration.tokenUrl;
     this.params = {
       "client_id": configuration.clientId,
+      "client_secret": configuration.clientSecret,
       "code": code,
       "redirect_uri": configuration.redirectUri,
       "grant_type": "authorization_code",

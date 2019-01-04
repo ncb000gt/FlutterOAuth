@@ -16,8 +16,7 @@ class AuthorizationRequest {
     this.parameters = {
       "client_id": config.clientId,
       "response_type": config.responseType,
-      "redirect_uri": config.redirectUri,
-      "grant_type": "authorization_code",
+      "redirect_uri": config.redirectUri
     };
     if (config.parameters != null) {
       this.parameters.addAll(config.parameters);
