@@ -1,4 +1,4 @@
-class Config {
+class Configuration {
   final String authorizationUrl;
   final String tokenUrl;
   final String clientId;
@@ -16,7 +16,7 @@ class Config {
   final String keyFile;
   final String keyPassword;
 
-  Config(
+  Configuration(
     this.authorizationUrl,
     this.tokenUrl,
     this.clientId,

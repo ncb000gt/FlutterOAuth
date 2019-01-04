@@ -1,5 +1,4 @@
 class Token {
-
   String accessToken;
   String tokenType;
   String refreshToken;
@@ -46,5 +45,4 @@ class Token {
     model.scope = map["scope"];
     return model;
   }
-
 }

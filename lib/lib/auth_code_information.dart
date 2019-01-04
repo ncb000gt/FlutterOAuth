@@ -1,4 +1,4 @@
-import 'package:flutter_oauth/lib/model/config.dart';
+import 'package:flutter_oauth/lib/configuration.dart';
 
 class AuthorizationRequest {
   String url;
@@ -8,21 +8,21 @@ class AuthorizationRequest {
   bool clearCookies;
 
   AuthorizationRequest(
-    Config config, {
+    Configuration configuration, {
     bool fullScreen: true,
     bool clearCookies: true,
   }) {
-    this.url = config.authorizationUrl;
+    this.url = configuration.authorizationUrl;
     this.parameters = {
-      "client_id": config.clientId,
-      "response_type": config.responseType,
-      "redirect_uri": config.redirectUri
+      "client_id": configuration.clientId,
+      "response_type": configuration.responseType,
+      "redirect_uri": configuration.redirectUri
     };
-    if (config.parameters != null) {
-      this.parameters.addAll(config.parameters);
+    if (configuration.parameters != null) {
+      this.parameters.addAll(configuration.parameters);
     }
     this.fullScreen = fullScreen;
     this.clearCookies = clearCookies;
-    this.headers = config.headers;
+    this.headers = configuration.headers;
   }
 }

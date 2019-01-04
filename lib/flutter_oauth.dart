@@ -1,4 +1,4 @@
-export 'lib/model/config.dart';
+export 'lib/configuration.dart';
 export 'lib/auth_code_information.dart';
 export 'lib/flutter_auth.dart';
 export 'lib/oauth.dart';

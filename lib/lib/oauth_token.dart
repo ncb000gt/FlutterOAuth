@@ -1,11 +1,11 @@
-import 'package:flutter_oauth/lib/model/config.dart';
+import 'package:flutter_oauth/lib/configuration.dart';
 
 class TokenRequestDetails {
   String url;
   Map<String, String> params;
   Map<String, String> headers;
 
-  TokenRequestDetails(Config configuration, String code) {
+  TokenRequestDetails(Configuration configuration, String code) {
     this.url = configuration.tokenUrl;
     this.params = {
       "client_id": configuration.clientId,

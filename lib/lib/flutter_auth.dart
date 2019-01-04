@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_oauth/lib/auth_code_information.dart';
-import 'package:flutter_oauth/lib/model/config.dart';
+import 'package:flutter_oauth/lib/configuration.dart';
 import 'package:flutter_oauth/lib/oauth.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,15 +19,13 @@ class FlutterOAuth extends OAuth {
   Stream<String> get onCode =>
       onCodeStream ??= onCodeListener.stream.asBroadcastStream();
 
-  FlutterOAuth(Config configuration)
+  FlutterOAuth(Configuration configuration)
       : super(configuration, AuthorizationRequest(configuration)) {
     this.configuration = configuration;
   }
 
   Future<String> requestCode() async {
     if (shouldRequestCode() && !isBrowserOpen) {
-      closeWebView();
-
       isBrowserOpen = true;
       server = await createServer();
       listenForServerResponse(server);

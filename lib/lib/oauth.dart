@@ -4,13 +4,13 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_oauth/lib/auth_code_information.dart';
-import 'package:flutter_oauth/lib/model/config.dart';
+import 'package:flutter_oauth/lib/configuration.dart';
 import 'package:flutter_oauth/lib/oauth_token.dart';
 import 'package:flutter_oauth/lib/token.dart';
 import 'package:http/http.dart';
 
 abstract class OAuth {
-  final Config configuration;
+  final Configuration configuration;
   final AuthorizationRequest requestDetails;
   String code;
   Map<String, dynamic> token;
