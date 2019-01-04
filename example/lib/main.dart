@@ -11,9 +11,8 @@ class FlutterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter OAuth',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.grey),
       home: Main(),
     );
   }
@@ -52,22 +51,26 @@ class MainState extends State<Main> {
   authorise() async {
     final OAuth flutterOAuth = FlutterOAuth(
       Config(
-        "https://www.strava.com/oauth/authorize",
-        "https://www.strava.com/oauth/token",
-        "CLIENT_ID",
-        "CLIENT_SECRET",
-        "http://localhost:8080",
-        "code",
-      ),
+          'https://unsplash.com/oauth/authorize',
+          'https://unsplash.com/oauth/token',
+          'CLIENT_ID',
+          'CLIENT_SECRET',
+          'http://localhost:8080',
+          'code',
+          contentType: 'application/x-www-form-urlencoded'),
     );
     Token token = await flutterOAuth.performAuthorization();
-    var alert = AlertDialog(
-      title: Text("Access Token"),
-      content: Text(token.accessToken),
-    );
+
     showDialog(
-      context: context,
-      builder: (context) => alert,
-    );
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Access Token"),
+              content: Text(token.accessToken),
+              actions: <Widget>[
+                FlatButton(
+                    child: Text('Okay'),
+                    onPressed: () => Navigator.of(context).pop())
+              ],
+            ));
   }
 }
