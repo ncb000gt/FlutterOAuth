@@ -11,13 +11,15 @@ Performing authorization for an API is straight forward using this library. In m
 will just be able to use the following approach:
 
 ```dart
-final OAuth flutterOAuth = new FlutterOAuth(new Config(
-    "https://unsplash.com/oauth/authorize",
-    "https://unsplash.com/oauth/token",
-    "YOUR_CLIENT_ID",
-    "YOUR_CLIENT_SECRET",
-    "http://localhost:8080",
-    "code"));
+final OAuth flutterOAuth = FlutterOAuth(Config(
+  'https://unsplash.com/oauth/authorize',
+  'https://unsplash.com/oauth/token',
+  'CLIENT_ID',
+  'CLIENT_SECRET',
+  'http://localhost:8080',  // DO NOT MODFIY IT, update to OAuth app.
+  'code',
+  contentType: 'application/x-www-form-urlencoded'),
+);
 ```
 
 This allows you to pass in an Authorization URL, Token request URL, Client ID, Client Secret,
@@ -65,7 +67,7 @@ Then once you have an OAuth instance, you can simply call the `performAuthorizat
 Token token = await flutterOAuth.performAuthorization();
 String accessToken = token.accessToken;
 ```
-    
+
 ## Installing
 
 Add the following you your pubspec.yaml dependancies:

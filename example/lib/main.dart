@@ -49,15 +49,14 @@ class MainState extends State<Main> {
   }
 
   authorise() async {
-    final OAuth flutterOAuth = FlutterOAuth(
-      Config(
-          'https://unsplash.com/oauth/authorize',
-          'https://unsplash.com/oauth/token',
-          'CLIENT_ID',
-          'CLIENT_SECRET',
-          'http://localhost:8080',
-          'code',
-          contentType: 'application/x-www-form-urlencoded'),
+    final OAuth flutterOAuth = FlutterOAuth(Config(
+      'https://unsplash.com/oauth/authorize',
+      'https://unsplash.com/oauth/token',
+      'CLIENT_ID',
+      'CLIENT_SECRET',
+      'http://localhost:8080',
+      'code',
+      contentType: 'application/x-www-form-urlencoded'),
     );
     Token token = await flutterOAuth.performAuthorization();
 
