@@ -20,7 +20,7 @@ class FlutterOAuth extends OAuth {
       onCodeStream ??= onCodeListener.stream.asBroadcastStream();
 
   FlutterOAuth(Config configuration)
-    : super(configuration, AuthorizationRequest(configuration)) {
+      : super(configuration, AuthorizationRequest(configuration)) {
     this.configuration = configuration;
   }
 
@@ -36,7 +36,9 @@ class FlutterOAuth extends OAuth {
 
       closeWebView();
       launch("${requestDetails.url}?$urlParams",
-          forceWebView: configuration.forceWebView, forceSafariVC: configuration.forceSafariVC, enableJavaScript: configuration.enableJavaScript);
+          forceWebView: configuration.forceWebView,
+          forceSafariVC: configuration.forceSafariVC,
+          enableJavaScript: configuration.enableJavaScript);
 
       code = await onCode.first;
       close();
@@ -54,18 +56,15 @@ class FlutterOAuth extends OAuth {
   }
 
   Future<HttpServer> createServer() async {
-
     if (configuration.certFile != null && configuration.keyFile != null) {
       SecurityContext context = new SecurityContext();
       var certString = await rootBundle.loadString(configuration.certFile);
       var keyString = await rootBundle.loadString(configuration.keyFile);
-      context.useCertificateChainBytes(
-        utf8.encode(certString)
-      );
-      context.usePrivateKeyBytes(
-        utf8.encode(keyString),
-        password: configuration.keyPassword != null ? configuration.keyPassword : ''
-      );
+      context.useCertificateChainBytes(utf8.encode(certString));
+      context.usePrivateKeyBytes(utf8.encode(keyString),
+          password: configuration.keyPassword != null
+              ? configuration.keyPassword
+              : '');
 
       return await HttpServer.bindSecure(
         InternetAddress.loopbackIPv4,
@@ -92,7 +91,8 @@ class FlutterOAuth extends OAuth {
       final code = uri.queryParameters["code"];
       final error = uri.queryParameters["error"];
 
-      if( (configuration.redirectedHtml != null) && (configuration.forceWebView != true) ) {
+      if ((configuration.redirectedHtml != null) &&
+          (configuration.forceWebView != true)) {
         request.response.write(configuration.redirectedHtml);
       }
 

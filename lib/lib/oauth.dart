@@ -2,7 +2,6 @@ library flutter_oauth;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter_oauth/lib/auth_code_information.dart';
 import 'package:flutter_oauth/lib/model/config.dart';
