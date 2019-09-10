@@ -15,6 +15,7 @@ class Configuration {
   final String certFile;
   final String keyFile;
   final String keyPassword;
+  final int port;
 
   Configuration(
     this.authorizationUrl,
@@ -34,6 +35,7 @@ class Configuration {
       this.forceWebView,
       this.forceSafariVC,
       this.enableJavaScript,
+      this.port = 8080
     }
   );
 }

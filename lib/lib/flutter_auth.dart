@@ -66,14 +66,14 @@ class FlutterOAuth extends OAuth {
 
       return await HttpServer.bindSecure(
         InternetAddress.loopbackIPv4,
-        8080,
+        configuration.port,
         context,
         shared: true,
       );
     } else {
       return await HttpServer.bind(
         InternetAddress.loopbackIPv4,
-        8080,
+        configuration.port,
         shared: true,
       );
     }
